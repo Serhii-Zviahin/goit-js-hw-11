@@ -10,7 +10,6 @@ export function getImagesByQuery(option) {
         .then(response => {
             if (response.data.hits.length > 0) {
                 gallery.innerHTML = createGallery(response.data.hits);
-                messageError();
                 gallery.refresh();
             } else {
                 messageError();
