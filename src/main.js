@@ -1,5 +1,5 @@
-import { getImagesByQuery } from "./Js/pixabay-api";
-import { clearGallery, showLoader } from "./Js/render-functions";
+import { getImagesByQuery } from "./js/pixabay-api";
+import { clearGallery, showLoader } from "./js/render-functions";
 
 const myAPI_KEY = "52805725-7d516d36c1804a9cebba9806b";
 const form = document.querySelector('.form');
