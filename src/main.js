@@ -1,0 +1,25 @@
+import { getImagesByQuery } from "./Js/pixabay-api";
+import { clearGallery, showLoader } from "./Js/render-functions";
+
+const myAPI_KEY = "52805725-7d516d36c1804a9cebba9806b";
+const form = document.querySelector('.form');
+const imageInput = form.querySelector('input[name="search-text"]');
+
+form.addEventListener('submit', handleSubmit);
+
+function handleSubmit(event) {
+    event.preventDefault();
+    showLoader();
+    const queryWord = imageInput.value;
+    const option = {
+            params: {
+                key: myAPI_KEY,
+                q: queryWord,                      // слово з пошукового поля
+                image_type: 'photo',
+                orientation: 'horizontal',
+                safesearch: true,
+            }
+    };
+    clearGallery();
+    getImagesByQuery(option);
+}
