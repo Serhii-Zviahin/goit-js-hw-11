@@ -8,20 +8,28 @@ import "izitoast/dist/css/iziToast.min.css";
 
 const loader = document.querySelector('.loader');
 const gallery = document.querySelector('.gallery');
+const lightbox = new SimpleLightbox('.gallery-link', {
+    captionsData: "alt",
+    captionPosition: "bottom",
+    captionDelay: 250
+});
 
 export function createGallery(images) {
-    return images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
+    const markup = images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
     <li class="gallery-item">
         <a class="gallery-link" href="${largeImageURL}">
             <img class="gallery-image" src="${webformatURL}" alt="${tags}" />
         </a>
-        <p><span class="bold">Likes</span> ${likes}</p>
-        <p><span class="bold">Views</span> ${views}</p>
-        <p><span class="bold">Comments</span> ${comments}</p>
-        <p><span class="bold">Downloads</span> ${downloads}</p>
+        <div class="gallery-image-data">
+            <p class="data-text"><span class="bold">Likes</span> ${likes}</p>
+            <p class="data-text"><span class="bold">Views</span> ${views}</p>
+            <p class="data-text"><span class="bold">Comments</span> ${comments}</p>
+            <p class="data-text"><span class="bold">Downloads</span> ${downloads}</p>
+        </div>
     </li>`)
         .join('');
-    
+    gallery.insertAdjacentHTML('beforeend', markup);    
+    lightbox.refresh()
 }
 
 export function messageError() {
@@ -46,8 +54,4 @@ export function hideLoader() {
     loader.classList.add('hidden');
 }
 
-new SimpleLightbox('.gallery-link', {
-    captionsData: "alt",
-    captionPosition: "bottom",
-    captionDelay: 250
-});
+

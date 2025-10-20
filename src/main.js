@@ -10,16 +10,21 @@ form.addEventListener('submit', handleSubmit);
 function handleSubmit(event) {
     event.preventDefault();
     showLoader();
-    const queryWord = imageInput.value;
+    clearGallery();
+    if (imageInput.value.length > 0) {
+        const queryWord = imageInput.value;
     const option = {
             params: {
                 key: myAPI_KEY,
-                q: queryWord,                      // слово з пошукового поля
+                q: queryWord,                // слово з пошукового поля
                 image_type: 'photo',
                 orientation: 'horizontal',
                 safesearch: true,
             }
     };
-    clearGallery();
     getImagesByQuery(option);
+    } else {
+        return;
+    }
+    
 }
