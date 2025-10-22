@@ -5,24 +5,21 @@ import "izitoast/dist/css/iziToast.min.css";
 import { hideLoader, messageError } from "./render-functions";
 
 const form = document.querySelector('.form');
-const imageInput = form.querySelector('input[name="search-text"]');
 
 const url = "https://pixabay.com/api/";
 const myAPI_KEY = "52805725-7d516d36c1804a9cebba9806b";
-const queryWord = imageInput.value;
-
 
 export function getImagesByQuery(queryWord) {
-    const option = {
+    return axios(url, {
         params: {
             key: myAPI_KEY,
             q: queryWord,                // слово з пошукового поля
             image_type: 'photo',
             orientation: 'horizontal',
             safesearch: true,
+            per_page: 18
         }
-    };
-    return axios(url, option)
+    })
         .then(response => {
             if (response.data.hits.length > 0) {
                 return response.data.hits;
@@ -41,4 +38,3 @@ export function getImagesByQuery(queryWord) {
             hideLoader();
         })
 };
-
