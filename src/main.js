@@ -25,17 +25,29 @@ function handleSubmit(event) {
     clearGallery();
     showLoader();
     
-    getImagesByQuery(queryWord).then(images => {
-        if (images) {
-            createGallery(images);
-        }
-    })
-        .catch(error => iziToast.show({
-        message: error.message,
-        position: `topRight`,
-        messageColor: '#fffc3aff',
-        backgroundColor: "#ec3939",
-    }));
-    hideLoader();
-    event.target.reset()
+    getImagesByQuery(queryWord)
+        .then(images => {
+            if (images.length > 0) {
+                createGallery(images);
+                hideLoader();
+                event.target.reset();
+            } else {
+                iziToast.show({
+                    message: 'Image did not find',
+                    position: `topRight`,
+                    messageColor: '#fffc3aff',
+                    backgroundColor: "#ec3939",
+                })
+            }
+        })
+        .catch(error => {
+            iziToast.show({
+                message: error.message,
+                position: `topRight`,
+                messageColor: '#fffc3aff',
+                backgroundColor: "#ec3939",
+            });
+            hideLoader();
+            event.target.reset();
+        });
 }

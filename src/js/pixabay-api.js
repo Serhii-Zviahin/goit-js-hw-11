@@ -2,9 +2,7 @@ import axios from "axios";
 import iziToast from "izitoast";
 // Додатковий імпорт стилів
 import "izitoast/dist/css/iziToast.min.css";
-import { hideLoader, messageError } from "./render-functions";
-
-const form = document.querySelector('.form');
+import { messageError } from "./render-functions";
 
 const url = "https://pixabay.com/api/";
 const myAPI_KEY = "52805725-7d516d36c1804a9cebba9806b";
@@ -25,7 +23,7 @@ export function getImagesByQuery(queryWord) {
                 return response.data.hits;
             } else {
                 messageError();
-                return null;
+                return [];
             }
         })
         .catch(error => iziToast.show({
@@ -34,7 +32,4 @@ export function getImagesByQuery(queryWord) {
         messageColor: '#fffc3aff',
         backgroundColor: "#ec3939",
     })) 
-        .finally(() => {
-            hideLoader();
-        })
 };
